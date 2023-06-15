@@ -54,6 +54,8 @@ public class AdminControlPanel implements Window {
         addUser.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (userID.getText().isBlank())
+                    return;
                 String newUserID = userID.getText();
                 userID.setText("");
                 UserDatabase.getInstance().addUser(newUserID);
@@ -66,6 +68,8 @@ public class AdminControlPanel implements Window {
         addGroup.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (groupID.getText().isBlank())
+                    return;
                 String newGroupID = groupID.getText();
                 groupID.setText("");
                 new UserGroup(newGroupID);
