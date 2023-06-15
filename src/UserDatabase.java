@@ -1,3 +1,4 @@
+import javax.swing.tree.DefaultMutableTreeNode;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -65,5 +66,10 @@ public class UserDatabase implements IUser {
             if (message.contains(keyword))
                 positiveMessagesCount++;
         }
+    }
+
+    @Override
+    public void acceptTreeVisitor(TreeNodeVisitor visitor, DefaultMutableTreeNode top) {
+        visitor.visitUserDatabase(instance, top);
     }
 }

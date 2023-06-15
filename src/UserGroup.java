@@ -1,3 +1,4 @@
+import javax.swing.tree.DefaultMutableTreeNode;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,5 +30,10 @@ public class UserGroup extends AbstractUser {
 
     public static int getNumGroups() {
         return groupUserList.size();
+    }
+
+    @Override
+    public void acceptTreeVisitor(TreeNodeVisitor visitor, DefaultMutableTreeNode top) {
+        visitor.visitUserGroup(this, top);
     }
 }

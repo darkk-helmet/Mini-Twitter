@@ -1,3 +1,4 @@
+import javax.swing.tree.DefaultMutableTreeNode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,5 +70,10 @@ public class User extends AbstractUser {
 
     public UserObserver getUserObserver() {
         return USER_OBSERVER;
+    }
+
+    @Override
+    public void acceptTreeVisitor(TreeNodeVisitor visitor, DefaultMutableTreeNode top) {
+        visitor.visitUser(this, top);
     }
 }

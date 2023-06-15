@@ -159,25 +159,29 @@ public class AdminControlPanel implements Window {
         return controlPanel;
     }
 
-    private void createNodes(DefaultMutableTreeNode top, List<IUser> users) {
+    private static void createNodes(DefaultMutableTreeNode top, List<IUser> users) {
+        for(IUser iUser : users)
+            iUser.acceptTreeVisitor(new NodeCreationVisitor(), top);
+    }
+
+    protected static void createGroupNode(IUser iUser, DefaultMutableTreeNode top) {
         DefaultMutableTreeNode subCategory;
-        DefaultMutableTreeNode user;
         String groupID;
         List<IUser> groupUsers;
 
-        for(IUser iUser : users) {
-            if (iUser instanceof UserGroup) {
-                groupID = iUser.getID();
-                groupUsers = (((UserGroup) iUser).getGroupUserList().get(groupID));
-                subCategory = new DefaultMutableTreeNode(groupID);
-                top.add(subCategory);
-                createNodes(subCategory, groupUsers);
-            } else {
-                user = new DefaultMutableTreeNode(iUser.getID());
-                user.setAllowsChildren(false);
-                top.add(user);
-            }
-        }
+        groupID = iUser.getID();
+        groupUsers = (((UserGroup) iUser).getGroupUserList().get(groupID));
+        subCategory = new DefaultMutableTreeNode(groupID);
+        top.add(subCategory);
+        createNodes(subCategory, groupUsers);
+    }
+
+    protected static void createUserNode(IUser iUser, DefaultMutableTreeNode top) {
+        DefaultMutableTreeNode user;
+
+        user = new DefaultMutableTreeNode(iUser.getID());
+        user.setAllowsChildren(false);
+        top.add(user);
     }
 
     private void createUIComponents() {
