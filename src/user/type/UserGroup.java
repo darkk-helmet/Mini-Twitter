@@ -1,3 +1,13 @@
+package user.type;
+
+import user.AbstractUser;
+import user.pattern.AddUserVisitor;
+import user.IUser;
+import user.pattern.UserGroupVisitor;
+import window.pattern.SubjectVisitor;
+import window.pattern.TreeNodeVisitor;
+import window.type.UserView;
+
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.util.ArrayList;
 import java.util.HashMap;

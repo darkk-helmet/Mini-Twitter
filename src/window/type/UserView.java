@@ -1,3 +1,9 @@
+package window.type;
+
+import user.IUser;
+import user.type.User;
+import user.type.UserDatabase;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,7 +20,7 @@ public class UserView {
     private JScrollPane followingsScroll;
     private JScrollPane feedScroll;
 
-    public UserView(String userID) {
+    protected UserView(String userID) {
         IUser user = UserDatabase.getInstance().getUser(userID);
         List<String> followings = ((User) user).getFollowings();
         List<String> messages = ((User) user).getMessages();
@@ -51,7 +57,7 @@ public class UserView {
         });
     }
 
-    public JPanel getPanel() {
+    protected JPanel getPanel() {
         return userPanel;
     }
 

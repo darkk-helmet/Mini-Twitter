@@ -1,3 +1,10 @@
+package window.pattern;
+
+import user.type.User;
+import user.type.UserDatabase;
+import user.type.UserGroup;
+import window.type.AdminControlPanel;
+
 import javax.swing.tree.DefaultMutableTreeNode;
 
 public class NodeCreationVisitor implements TreeNodeVisitor {

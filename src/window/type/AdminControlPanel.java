@@ -1,3 +1,12 @@
+package window.type;
+
+import user.IUser;
+import user.type.UserDatabase;
+import user.type.UserGroup;
+import window.Window;
+import window.pattern.NodeCreationVisitor;
+import window.pattern.UserObserver;
+
 import javax.swing.*;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
@@ -164,7 +173,7 @@ public class AdminControlPanel implements Window {
             iUser.acceptTreeVisitor(new NodeCreationVisitor(), top);
     }
 
-    protected static void createGroupNode(IUser iUser, DefaultMutableTreeNode top) {
+    public static void createGroupNode(IUser iUser, DefaultMutableTreeNode top) {
         DefaultMutableTreeNode subCategory;
         String groupID;
         List<IUser> groupUsers;
@@ -176,7 +185,7 @@ public class AdminControlPanel implements Window {
         createNodes(subCategory, groupUsers);
     }
 
-    protected static void createUserNode(IUser iUser, DefaultMutableTreeNode top) {
+    public static void createUserNode(IUser iUser, DefaultMutableTreeNode top) {
         DefaultMutableTreeNode user;
 
         user = new DefaultMutableTreeNode(iUser.getID());

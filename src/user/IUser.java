@@ -1,3 +1,8 @@
+package user;
+
+import user.pattern.UserGroupVisitor;
+import window.pattern.TreeNodeVisitor;
+
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.util.HashMap;
 import java.util.Map;

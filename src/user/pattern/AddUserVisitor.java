@@ -1,3 +1,9 @@
+package user.pattern;
+
+import user.type.User;
+import user.type.UserDatabase;
+import user.type.UserGroup;
+
 public class AddUserVisitor implements UserGroupVisitor {
     @Override
     public void visitUser(User user, String groupID) {

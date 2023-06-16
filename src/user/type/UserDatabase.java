@@ -1,3 +1,10 @@
+package user.type;
+
+import user.IUser;
+import user.pattern.UserGroupVisitor;
+import window.type.AdminControlPanel;
+import window.pattern.TreeNodeVisitor;
+
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.util.ArrayList;
 import java.util.Arrays;

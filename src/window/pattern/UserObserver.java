@@ -1,3 +1,10 @@
+package window.pattern;
+
+import user.IUser;
+import user.Subject;
+import user.type.User;
+import window.type.UserView;
+
 import java.util.HashMap;
 import java.util.Map;
 

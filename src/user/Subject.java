@@ -1,3 +1,10 @@
+package user;
+
+import user.type.User;
+import window.pattern.Observer;
+import window.pattern.SubjectVisitor;
+import window.type.UserView;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;

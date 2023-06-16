@@ -1,3 +1,5 @@
+package window.type;
+
 import javax.swing.*;
 import java.awt.event.*;
 

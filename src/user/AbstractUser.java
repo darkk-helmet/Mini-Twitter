@@ -1,3 +1,5 @@
+package user;
+
 public abstract class AbstractUser extends Subject implements IUser{
     protected final String ID;
 
