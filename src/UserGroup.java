@@ -36,4 +36,9 @@ public class UserGroup extends AbstractUser {
     public void acceptTreeVisitor(TreeNodeVisitor visitor, DefaultMutableTreeNode top) {
         visitor.visitUserGroup(this, top);
     }
+
+    @Override
+    public void acceptSubjectVisitor(SubjectVisitor visitor, User user, Map<String, UserView> userViews) {
+        visitor.visitUserGroup(this, user, userViews);
+    }
 }

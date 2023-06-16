@@ -1,6 +1,7 @@
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class User extends AbstractUser {
     private final List<String> followers = new ArrayList<>();
@@ -75,5 +76,10 @@ public class User extends AbstractUser {
     @Override
     public void acceptTreeVisitor(TreeNodeVisitor visitor, DefaultMutableTreeNode top) {
         visitor.visitUser(this, top);
+    }
+
+    @Override
+    public void acceptSubjectVisitor(SubjectVisitor visitor, User user, Map<String, UserView> userViews) {
+        visitor.visitUser(this, user, userViews);
     }
 }

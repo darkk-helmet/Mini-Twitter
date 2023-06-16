@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public abstract class Subject {
     private final List<Observer> observers = new ArrayList<>();
@@ -19,4 +20,6 @@ public abstract class Subject {
         for (int i = 0; i < observers.size(); i++)
             observers.get(i).update(this, users.get(i));
     }
+
+    public abstract void acceptSubjectVisitor(SubjectVisitor visitor, User user, Map<String, UserView> userViews);
 }

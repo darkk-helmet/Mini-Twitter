@@ -6,19 +6,14 @@ public class UserObserver implements Observer {
 
     @Override
     public void update(Subject subject, IUser user) {
-        if (subject instanceof User) {
-            updateUsersNewsFeed(subject, user);
-            UserView userView = userViews.get(user.getID());
-            if (userView != null)
-                userView.updateNewsFeed((User) user);
-        }
+        subject.acceptSubjectVisitor(new NewsFeedVisitor(), (User) user, userViews);
     }
 
-    private void updateUsersNewsFeed(Subject subject, IUser user) {
-        ((User) user).updateNewsFeed("\n-   " + ((User) subject).getID() + ": " +
-                ((User) subject).getMessages().get(((User) subject).getMessages().size() - 1));
-        ((User) subject).updateNewsFeed("\n-   " + ((User) subject).getID() + ": " +
-                ((User) subject).getMessages().get(((User) subject).getMessages().size() - 1));
+    protected void updateUsersNewsFeed(User postingUser, User userToUpdate) {
+        userToUpdate.updateNewsFeed("\n-   " + postingUser.getID() + ": " +
+                postingUser.getMessages().get(postingUser.getMessages().size() - 1));
+        postingUser.updateNewsFeed("\n-   " + postingUser.getID() + ": " +
+                postingUser.getMessages().get(postingUser.getMessages().size() - 1));
     }
 
     public static void addUserView(UserView userView, String id) {
