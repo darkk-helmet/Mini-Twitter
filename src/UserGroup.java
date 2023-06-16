@@ -12,20 +12,13 @@ public class UserGroup extends AbstractUser {
         groupUserList.put(id, new ArrayList<>());
     }
 
-    public Map<String, ArrayList<IUser>> getGroupUserList() {
+    public static Map<String, ArrayList<IUser>> getGroupUserList() {
         return groupUserList;
     }
 
     public void addUsers(List<IUser> users) {
-        for (IUser user : users) {
-            if (user instanceof User) {
-                if (((User) user).isInGroup()) {
-                    throw new RuntimeException("User " + user.getID() + " cannot be in multiple groups!");
-                } else
-                    ((User) user).setIsInGroup();
-            }
-            groupUserList.get(ID).add(user);
-        }
+        for (IUser user : users)
+            user.acceptUserGroupVisitor(new AddUserVisitor(), ID);
     }
 
     public static int getNumGroups() {
@@ -35,6 +28,11 @@ public class UserGroup extends AbstractUser {
     @Override
     public void acceptTreeVisitor(TreeNodeVisitor visitor, DefaultMutableTreeNode top) {
         visitor.visitUserGroup(this, top);
+    }
+
+    @Override
+    public void acceptUserGroupVisitor(UserGroupVisitor visitor, String groupID) {
+        visitor.visitUserGroup(this, groupID);
     }
 
     @Override

@@ -72,4 +72,9 @@ public class UserDatabase implements IUser {
     public void acceptTreeVisitor(TreeNodeVisitor visitor, DefaultMutableTreeNode top) {
         visitor.visitUserDatabase(instance, top);
     }
+
+    @Override
+    public void acceptUserGroupVisitor(UserGroupVisitor visitor, String groupID) {
+        visitor.visitUserDatabase(instance, groupID);
+    }
 }

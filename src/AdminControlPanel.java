@@ -170,7 +170,7 @@ public class AdminControlPanel implements Window {
         List<IUser> groupUsers;
 
         groupID = iUser.getID();
-        groupUsers = (((UserGroup) iUser).getGroupUserList().get(groupID));
+        groupUsers = UserGroup.getGroupUserList().get(groupID);
         subCategory = new DefaultMutableTreeNode(groupID);
         top.add(subCategory);
         createNodes(subCategory, groupUsers);

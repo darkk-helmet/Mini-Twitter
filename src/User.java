@@ -79,6 +79,11 @@ public class User extends AbstractUser {
     }
 
     @Override
+    public void acceptUserGroupVisitor(UserGroupVisitor visitor, String groupID) {
+        visitor.visitUser(this, groupID);
+    }
+
+    @Override
     public void acceptSubjectVisitor(SubjectVisitor visitor, User user, Map<String, UserView> userViews) {
         visitor.visitUser(this, user, userViews);
     }
