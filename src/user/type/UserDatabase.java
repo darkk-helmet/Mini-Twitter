@@ -70,8 +70,10 @@ public class UserDatabase implements IUser {
     private void checkIfPositiveMessage(String message) {
         message = message.toLowerCase();
         for (String keyword : positiveKeywords) {
-            if (message.contains(keyword))
+            if (message.contains(keyword)) {
                 positiveMessagesCount++;
+                return;
+            }
         }
     }
 
