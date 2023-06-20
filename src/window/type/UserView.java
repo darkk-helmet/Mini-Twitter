@@ -3,13 +3,14 @@ package window.type;
 import user.IUser;
 import user.type.User;
 import user.type.UserDatabase;
+import window.Window;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-public class UserView {
+public class UserView implements Window {
     private JButton followButton;
     private JTextPane followingsText;
     private JTextField messageText;
@@ -57,7 +58,8 @@ public class UserView {
         });
     }
 
-    protected JPanel getPanel() {
+    @Override
+    public JPanel getPanel() {
         return userPanel;
     }
 
