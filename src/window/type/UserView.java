@@ -31,29 +31,23 @@ public class UserView implements Window {
         }
         for (String text : newsFeed)
             feedText.setText(feedText.getText() + text);
-        followButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (((User) user).addFollowing(userIDText.getText())) {
-                    followingsText.setText(followingsText.getText() + "\n-   " + followings.get(followings.size() - 1));
-                    userIDText.setText("");
-                }
-                else {
-                    DialogWindow dialog = new DialogWindow();
-                    dialog.setText("User " + userIDText.getText() + " not found.");
-                    dialog.pack();
-                    dialog.setVisible(true);
-                }
+        followButton.addActionListener(e -> {
+            if (((User) user).addFollowing(userIDText.getText())) {
+                followingsText.setText(followingsText.getText() + "\n-   " + followings.get(followings.size() - 1));
+                userIDText.setText("");
+            }
+            else {
+                DialogWindow dialog = new DialogWindow();
+                dialog.setText("User " + userIDText.getText() + " not found.");
+                dialog.pack();
+                dialog.setVisible(true);
             }
         });
-        tweetButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (!messageText.getText().isBlank()) {
-                    ((User) user).addMessage(messageText.getText());
-                    feedText.setText(feedText.getText() + "\n-   " + userID + ": " + messages.get(messages.size() - 1));
-                    messageText.setText("");
-                }
+        tweetButton.addActionListener(e -> {
+            if (!messageText.getText().isBlank()) {
+                ((User) user).addMessage(messageText.getText());
+                feedText.setText(feedText.getText() + "\n-   " + userID + ": " + messages.get(messages.size() - 1));
+                messageText.setText("");
             }
         });
     }

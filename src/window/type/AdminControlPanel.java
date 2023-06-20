@@ -41,115 +41,98 @@ public class AdminControlPanel implements Window {
     private boolean userIsSelected = false;
 
     private AdminControlPanel() {
-        userTree.addTreeSelectionListener(new TreeSelectionListener() {
-            @Override
-            public void valueChanged(TreeSelectionEvent e) {
-                DefaultMutableTreeNode node = (DefaultMutableTreeNode) userTree.getLastSelectedPathComponent();
+        userTree.addTreeSelectionListener(e -> {
+            DefaultMutableTreeNode node = (DefaultMutableTreeNode) userTree.getLastSelectedPathComponent();
 
-                if (node == null)
-                    return;
+            if (node == null)
+                return;
 
-                Object nodeInfo = node.getUserObject();
-                if (node.isLeaf()) {
-                    selectedID = (String) nodeInfo;
-                    userIsSelected = true;
-                }
-                else {
-                    selectedID = (String) nodeInfo;
-                    userIsSelected = false;
-                }
+            Object nodeInfo = node.getUserObject();
+            if (node.isLeaf()) {
+                selectedID = (String) nodeInfo;
+                userIsSelected = true;
+            }
+            else {
+                selectedID = (String) nodeInfo;
+                userIsSelected = false;
             }
         });
-        addUser.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (userID.getText().isBlank())
-                    return;
-                String newUserID = userID.getText();
-                userID.setText("");
-                UserDatabase.getInstance().addUser(newUserID);
-                DefaultMutableTreeNode newUser = new DefaultMutableTreeNode(newUserID);
-                newUser.setAllowsChildren(false);
-                root.add(newUser);
-                treeModel.reload();
-            }
+
+        addUser.addActionListener(e -> {
+            if (userID.getText().isBlank())
+                return;
+            String newUserID = userID.getText();
+            userID.setText("");
+            UserDatabase.getInstance().addUser(newUserID);
+            DefaultMutableTreeNode newUser = new DefaultMutableTreeNode(newUserID);
+            newUser.setAllowsChildren(false);
+            root.add(newUser);
+            treeModel.reload();
         });
-        addGroup.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (groupID.getText().isBlank())
-                    return;
-                String newGroupID = groupID.getText();
-                groupID.setText("");
-                new UserGroup(newGroupID);
-                DefaultMutableTreeNode newGroup = new DefaultMutableTreeNode(newGroupID);
-                root.add(newGroup);
-                treeModel.reload();
-            }
+
+        addGroup.addActionListener(e -> {
+            if (groupID.getText().isBlank())
+                return;
+            String newGroupID = groupID.getText();
+            groupID.setText("");
+            new UserGroup(newGroupID);
+            DefaultMutableTreeNode newGroup = new DefaultMutableTreeNode(newGroupID);
+            root.add(newGroup);
+            treeModel.reload();
         });
-        userView.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (userIsSelected) {
-                    UserView view = new UserView(selectedID);
-                    UserObserver.addUserView(view, selectedID);
-                    JFrame frame = new JFrame("User View");
-                    frame.setContentPane(view.getPanel());
-                    frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-                    frame.pack();
-                    frame.setVisible(true);
-                    frame.addWindowListener(new WindowAdapter() {
-                        @Override
-                        public void windowClosing(WindowEvent e) {
-                            UserObserver.removeUserView(view, selectedID);
-                            frame.dispose();
-                        }
-                    });
-                }
-                else {
-                    DialogWindow dialog = new DialogWindow();
-                    dialog.setText("A user must be selected from the tree to open the user view!");
-                    dialog.pack();
-                    dialog.setVisible(true);
-                }
+
+        userView.addActionListener(e -> {
+            if (userIsSelected) {
+                UserView view = new UserView(selectedID);
+                UserObserver.addUserView(view, selectedID);
+                JFrame frame = new JFrame("User View");
+                frame.setContentPane(view.getPanel());
+                frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+                frame.pack();
+                frame.setVisible(true);
+                frame.addWindowListener(new WindowAdapter() {
+                    @Override
+                    public void windowClosing(WindowEvent e) {
+                        UserObserver.removeUserView(view, selectedID);
+                        frame.dispose();
+                    }
+                });
             }
-        });
-        userTotal.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+            else {
                 DialogWindow dialog = new DialogWindow();
-                dialog.setText("There is currently a total of " + UserDatabase.getInstance().getUserCount() + " users.");
+                dialog.setText("A user must be selected from the tree to open the user view!");
                 dialog.pack();
                 dialog.setVisible(true);
             }
         });
-        groupTotal.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                DialogWindow dialog = new DialogWindow();
-                dialog.setText("There is currently a total of " + UserGroup.getNumGroups() + " groups.");
-                dialog.pack();
-                dialog.setVisible(true);
-            }
+
+        userTotal.addActionListener(e -> {
+            DialogWindow dialog = new DialogWindow();
+            dialog.setText("There is currently a total of " + UserDatabase.getInstance().getUserCount() + " users.");
+            dialog.pack();
+            dialog.setVisible(true);
         });
-        messagesTotal.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                DialogWindow dialog = new DialogWindow();
-                dialog.setText("There has been a total of " + UserDatabase.getInstance().getMessagesCount() + " messages posted.");
-                dialog.pack();
-                dialog.setVisible(true);
-            }
+
+        groupTotal.addActionListener(e -> {
+            DialogWindow dialog = new DialogWindow();
+            dialog.setText("There is currently a total of " + UserGroup.getNumGroups() + " groups.");
+            dialog.pack();
+            dialog.setVisible(true);
         });
-        positivePercentage.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                DialogWindow dialog = new DialogWindow();
-                dialog.setText("There has been a total of " + UserDatabase.getInstance().getPositiveMessagesCount() +
-                        " positive messages posted.");
-                dialog.pack();
-                dialog.setVisible(true);
-            }
+
+        messagesTotal.addActionListener(e -> {
+            DialogWindow dialog = new DialogWindow();
+            dialog.setText("There has been a total of " + UserDatabase.getInstance().getMessagesCount() + " messages posted.");
+            dialog.pack();
+            dialog.setVisible(true);
+        });
+
+        positivePercentage.addActionListener(e -> {
+            DialogWindow dialog = new DialogWindow();
+            dialog.setText("There has been a total of " + UserDatabase.getInstance().getPositiveMessagesCount() +
+                    " positive messages posted.");
+            dialog.pack();
+            dialog.setVisible(true);
         });
     }
 
