@@ -16,7 +16,7 @@ public class UserDatabase implements IUser {
     private int userCount = 0;
     private int messagesCount = 0;
     private int positiveMessagesCount = 0;
-    private final List<String> positiveKeywords = Arrays.asList("good", "great", "excellent", "nice");
+    private final List<String> positiveKeywords = Arrays.asList("good", "great", "excellent", "nice", "awesome");
 
     private UserDatabase() {}
 
