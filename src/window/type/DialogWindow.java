@@ -6,7 +6,6 @@ import java.awt.event.*;
 public class DialogWindow extends JDialog {
     private JPanel contentPane;
     private JButton buttonOK;
-    private JButton buttonCancel;
     private JLabel label;
 
     public DialogWindow() {
@@ -15,8 +14,6 @@ public class DialogWindow extends JDialog {
         getRootPane().setDefaultButton(buttonOK);
 
         buttonOK.addActionListener(e -> onOKOrCancel());
-
-        buttonCancel.addActionListener(e -> onOKOrCancel());
 
         // call onOKOrCancel() when cross is clicked
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
