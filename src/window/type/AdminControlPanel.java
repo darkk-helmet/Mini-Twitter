@@ -81,7 +81,7 @@ public class AdminControlPanel implements Window {
             if (userIsSelected) {
                 UserView view = new UserView(selectedID);
                 UserObserver.addUserView(view, selectedID);
-                JFrame frame = new JFrame("User View");
+                JFrame frame = new JFrame("User View (" + selectedID + ")");
                 frame.setContentPane(view.getPanel());
                 frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
                 frame.pack();
