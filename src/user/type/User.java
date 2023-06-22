@@ -54,6 +54,7 @@ public class User extends AbstractUser {
     public void addMessage(String message) {
         messages.add(message);
         lastUpdateTime = System.currentTimeMillis();
+        lastUpdatedUserID = this.ID;
         UserDatabase.getInstance().incrementMessagesCount(message);
         notifyObservers();
     }
@@ -92,6 +93,10 @@ public class User extends AbstractUser {
 
     public void setLastUpdateTime(long time) {
         lastUpdateTime = time;
+    }
+
+    public static String getLastUpdatedUserID() {
+        return lastUpdatedUserID;
     }
 
     @Override

@@ -2,6 +2,7 @@ package window.type;
 
 import user.AbstractUser;
 import user.IUser;
+import user.type.User;
 import user.type.UserDatabase;
 import user.type.UserGroup;
 import window.Window;
@@ -34,6 +35,7 @@ public class AdminControlPanel implements Window {
     private JTextField userID;
     private JTextField groupID;
     private JButton validateIDsButton;
+    private JButton lastUpdateButton;
     private static AdminControlPanel instance;
     private DefaultTreeModel treeModel;
     private DefaultMutableTreeNode root;
@@ -122,7 +124,8 @@ public class AdminControlPanel implements Window {
 
         messagesTotal.addActionListener(e -> {
             DialogWindow dialog = new DialogWindow();
-            dialog.setText("There has been a total of " + UserDatabase.getInstance().getMessagesCount() + " messages posted.");
+            dialog.setText("There has been a total of " + UserDatabase.getInstance().getMessagesCount() +
+                    " messages posted.");
             dialog.pack();
             dialog.setVisible(true);
         });
@@ -142,6 +145,15 @@ public class AdminControlPanel implements Window {
                 dialog.setText("One or more user or group IDs are invalid!");
             dialog.pack();
             dialog.setVisible(true);
+        });
+        lastUpdateButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                DialogWindow dialog = new DialogWindow();
+                dialog.setText("The last update was made by " + User.getLastUpdatedUserID() + ".");
+                dialog.pack();
+                dialog.setVisible(true);
+            }
         });
     }
 
