@@ -20,6 +20,8 @@ public class User extends AbstractUser {
     private final List<String> newsFeed = new ArrayList<>();
     private final UserObserver USER_OBSERVER = new UserObserver();
     private boolean isInGroup = false;
+    private long lastUpdateTime = -1;
+    private static String lastUpdatedUserID;
 
     public User(String id) {
         super(id);
@@ -51,6 +53,7 @@ public class User extends AbstractUser {
 
     public void addMessage(String message) {
         messages.add(message);
+        lastUpdateTime = System.currentTimeMillis();
         UserDatabase.getInstance().incrementMessagesCount(message);
         notifyObservers();
     }
@@ -81,6 +84,14 @@ public class User extends AbstractUser {
 
     public UserObserver getUserObserver() {
         return USER_OBSERVER;
+    }
+
+    public long getLastUpdateTime() {
+        return lastUpdateTime;
+    }
+
+    public void setLastUpdateTime(long time) {
+        lastUpdateTime = time;
     }
 
     @Override

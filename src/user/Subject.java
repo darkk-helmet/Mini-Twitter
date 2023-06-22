@@ -24,8 +24,10 @@ public abstract class Subject {
     }
 
     public void notifyObservers() {
-        for (int i = 0; i < observers.size(); i++)
+        for (int i = 0; i < observers.size(); i++) {
+            ((User) users.get(i)).setLastUpdateTime(((User) this).getLastUpdateTime());
             observers.get(i).update(this, users.get(i));
+        }
     }
 
     public abstract void acceptSubjectVisitor(SubjectVisitor visitor, User user, Map<String, UserView> userViews);

@@ -1,6 +1,5 @@
 package window.type;
 
-import user.IUser;
 import user.type.User;
 import user.type.UserDatabase;
 import window.Window;
@@ -19,6 +18,7 @@ public class UserView implements Window {
     private JScrollPane followingsScroll;
     private JScrollPane feedScroll;
     private JTextField creationTimeText;
+    private JTextField lastUpdateText;
 
     protected UserView(String userID) {
         User user = (User) UserDatabase.getInstance().getUser(userID);
@@ -26,6 +26,7 @@ public class UserView implements Window {
         List<String> messages = user.getMessages();
         List<String> newsFeed = user.getNewsFeed();
 
+        lastUpdateText.setText("Last News Feed Update at: " + user.getLastUpdateTime());
         creationTimeText.setText(creationTimeText.getText() + user.getCreationTime());
 
         for(String followingUser : followings) {
@@ -49,6 +50,7 @@ public class UserView implements Window {
             if (!messageText.getText().isBlank()) {
                 user.addMessage(messageText.getText());
                 feedText.setText(feedText.getText() + "\n-   " + userID + ": " + messages.get(messages.size() - 1));
+                lastUpdateText.setText("Last News Feed Update at: " + user.getLastUpdateTime());
                 messageText.setText("");
             }
         });
@@ -61,5 +63,6 @@ public class UserView implements Window {
 
     public void updateNewsFeed(User user) {
         feedText.setText(feedText.getText() + user.getNewsFeed().get(user.getNewsFeed().size() - 1));
+        lastUpdateText.setText("Last News Feed Update at: " + user.getLastUpdateTime());
     }
 }
