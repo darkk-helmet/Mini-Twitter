@@ -18,19 +18,23 @@ public class UserView implements Window {
     private JTextField userIDText;
     private JScrollPane followingsScroll;
     private JScrollPane feedScroll;
+    private JTextField creationTimeText;
 
     protected UserView(String userID) {
-        IUser user = UserDatabase.getInstance().getUser(userID);
-        List<String> followings = ((User) user).getFollowings();
-        List<String> messages = ((User) user).getMessages();
-        List<String> newsFeed = ((User) user).getNewsFeed();
+        User user = (User) UserDatabase.getInstance().getUser(userID);
+        List<String> followings = user.getFollowings();
+        List<String> messages = user.getMessages();
+        List<String> newsFeed = user.getNewsFeed();
+
+        creationTimeText.setText(creationTimeText.getText() + user.getCreationTime());
+
         for(String followingUser : followings) {
             followingsText.setText(followingsText.getText() + "\n-   " + followingUser);
         }
         for (String text : newsFeed)
             feedText.setText(feedText.getText() + text);
         followButton.addActionListener(e -> {
-            if (((User) user).addFollowing(userIDText.getText())) {
+            if (user.addFollowing(userIDText.getText())) {
                 followingsText.setText(followingsText.getText() + "\n-   " + followings.get(followings.size() - 1));
                 userIDText.setText("");
             }
@@ -43,7 +47,7 @@ public class UserView implements Window {
         });
         tweetButton.addActionListener(e -> {
             if (!messageText.getText().isBlank()) {
-                ((User) user).addMessage(messageText.getText());
+                user.addMessage(messageText.getText());
                 feedText.setText(feedText.getText() + "\n-   " + userID + ": " + messages.get(messages.size() - 1));
                 messageText.setText("");
             }
