@@ -1,5 +1,6 @@
 package window.type;
 
+import user.AbstractUser;
 import user.IUser;
 import user.type.UserDatabase;
 import user.type.UserGroup;
@@ -11,6 +12,8 @@ import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeSelectionModel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.List;
@@ -30,6 +33,7 @@ public class AdminControlPanel implements Window {
     private JScrollPane treeScrollPane;
     private JTextField userID;
     private JTextField groupID;
+    private JButton validateIDsButton;
     private static AdminControlPanel instance;
     private DefaultTreeModel treeModel;
     private DefaultMutableTreeNode root;
@@ -127,6 +131,15 @@ public class AdminControlPanel implements Window {
             DialogWindow dialog = new DialogWindow();
             dialog.setText("There has been a total of " + UserDatabase.getInstance().getPositiveMessagesCount() +
                     " positive messages posted.");
+            dialog.pack();
+            dialog.setVisible(true);
+        });
+        validateIDsButton.addActionListener(e -> {
+            DialogWindow dialog = new DialogWindow();
+            if (AbstractUser.isValidIDs)
+                dialog.setText("All user and group IDs are valid.");
+            else
+                dialog.setText("One or more user or group IDs are invalid!");
             dialog.pack();
             dialog.setVisible(true);
         });
